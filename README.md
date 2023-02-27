@@ -24,7 +24,22 @@
 
 5. bring up environment with `azd up`
 
+----
+
 ## links
 
 - <https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/use-terraform-for-azd>
 - <https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_app>
+- <https://github.com/Azure/azure-dev>
+- <https://github.com/Azure/azure-dev/discussions>
+
+
+----
+
+## Helpers
+
+### remove all Container Apps prior to `terraform destroy`
+
+```shell
+az containerapp delete --id $(az containerapp list -o tsv -g {resourceGroup} --query "[].id") -y
+```

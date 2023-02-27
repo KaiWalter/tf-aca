@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "envName": {
+            "value": "${AZURE_ENV_NAME}"
+        },
+        "appName": {
+            "value": "sender"
+        },
+        "resource_group_name": {
+            "value": "${AZURE_ENV_NAME}-rg"
+        },
+        "location": {
+            "value": "${AZURE_LOCATION}"
+        },
+        "acaName": {
+            "value": "${AZURE_CONTAINER_APP_ENV_NAME}"
+        },
+        "acrName": {
+            "value": "${AZURE_CONTAINER_REGISTRY_NAME}"
+        },
+        "acrPullId": {
+            "value": "${AZURE_CONTAINER_REGISTRY_PULL_IDENTITY_ID}"
+        },
+        "imageName": {
+            "value": "${SERVICE_RECEIVER_IMAGE_NAME}"
+        }
+    }
+}
