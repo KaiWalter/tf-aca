@@ -3,6 +3,9 @@ resource "azurerm_container_app" "sender" {
   container_app_environment_id = module.aca.CONTAINER_APP_ENV_ID
   resource_group_name          = azurerm_resource_group.rg.name
   revision_mode                = "Single"
+  tags = merge(local.tags, {
+    "azd-service-name" = "sender"
+  })
 
   identity {
     type         = "UserAssigned"
