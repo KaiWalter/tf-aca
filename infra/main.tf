@@ -73,3 +73,25 @@ module "servicebus" {
   tags           = local.tags
   resource_token = local.resource_token
 }
+
+module "sender" {
+  source                              = "./modules/sender"
+  location                            = var.location
+  rg_name                             = azurerm_resource_group.rg.name
+  tags                                = local.tags
+  container_app_environment_id        = module.aca.CONTAINER_APP_ENV_ID
+  container_registry_endpoint         = module.acr.CONTAINER_REGISTRY_ENDPOINT
+  container_registry_pull_identity_id = module.acr.CONTAINER_REGISTRY_PULL_IDENTITY_ID
+  service_sender_image_name           = var.service_receiver_image_name
+}
+
+module "receiver" {
+  source                              = "./modules/receiver"
+  location                            = var.location
+  rg_name                             = azurerm_resource_group.rg.name
+  tags                                = local.tags
+  container_app_environment_id        = module.aca.CONTAINER_APP_ENV_ID
+  container_registry_endpoint         = module.acr.CONTAINER_REGISTRY_ENDPOINT
+  container_registry_pull_identity_id = module.acr.CONTAINER_REGISTRY_PULL_IDENTITY_ID
+  service_receiver_image_name         = var.service_receiver_image_name
+}

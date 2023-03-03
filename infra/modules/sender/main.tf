@@ -1,15 +1,15 @@
 resource "azurerm_container_app" "sender" {
   name                         = "sender"
-  container_app_environment_id = module.aca.CONTAINER_APP_ENV_ID
-  resource_group_name          = azurerm_resource_group.rg.name
+  container_app_environment_id = var.container_app_environment_id
+  resource_group_name          = var.rg_name
   revision_mode                = "Single"
-  tags = merge(local.tags, {
+  tags = merge(var.tags, {
     "azd-service-name" = "sender"
   })
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [module.acr.CONTAINER_REGISTRY_PULL_IDENTITY_ID]
+    identity_ids = [var.container_registry_pull_identity_id]
   }
 
   ingress {
@@ -26,8 +26,8 @@ resource "azurerm_container_app" "sender" {
     for_each = var.service_sender_image_name == "" ? [] : [1]
 
     content {
-      server   = module.acr.CONTAINER_REGISTRY_ENDPOINT
-      identity = module.acr.CONTAINER_REGISTRY_PULL_IDENTITY_ID
+      server   = var.container_registry_endpoint
+      identity = var.container_registry_pull_identity_id
     }
   }
 
