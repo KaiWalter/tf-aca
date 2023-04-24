@@ -22,7 +22,7 @@
 - `{your-resource-prefix}` is the prefix all resources created get e.g. `tfaca`
 - `{object-id-of-additional-keyvault-admin}` is the AAD object ID of additional users or service principals needing adminstration access to Key Vault created
 
-5. bring up environment with `azd up`
+5. bring up environment with `azd infra create` to create basic infrastructure and `azd up` to also deploy services
 
 ----
 

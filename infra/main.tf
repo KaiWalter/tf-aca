@@ -82,7 +82,7 @@ module "sender" {
   container_app_environment_id        = module.aca.CONTAINER_APP_ENV_ID
   container_registry_endpoint         = module.acr.CONTAINER_REGISTRY_ENDPOINT
   container_registry_pull_identity_id = module.acr.CONTAINER_REGISTRY_PULL_IDENTITY_ID
-  service_sender_image_name           = var.service_receiver_image_name
+  service_sender_image_name           = var.service_sender_image_name
 }
 
 module "receiver" {

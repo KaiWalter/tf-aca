@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "start": "node index.js",
-        "start:dapr": "dapr run --app-port 5002 --app-id sender --app-protocol http --dapr-http-port 3502 --components-path ../components -- npm run start"
+        "start:dapr": "dapr run --app-port 5002 --app-id sender --app-protocol http --dapr-http-port 3502 --resources-path ../components -- npm run start"
     },
     "keywords": [],
     "author": "",

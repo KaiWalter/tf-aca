@@ -27,9 +27,13 @@ resource "azurerm_container_app_environment_dapr_component" "dapr_component_pubs
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   component_type               = "pubsub.azure.servicebus"
   version                      = "v1"
+  secret {
+    name = "sb-connection-string"
+    value = var.sb_load_connection_string
+  }
   metadata {
     name  = "connectionString"
-    value = var.sb_load_connection_string
+    secret_name = "sb-connection-string"
   }
   scopes = [
     "sender",
@@ -42,9 +46,13 @@ resource "azurerm_container_app_environment_dapr_component" "dapr_component_pubs
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   component_type               = "pubsub.azure.servicebus"
   version                      = "v1"
+  secret {
+    name = "eh-connection-string"
+    value = var.eh_load_connection_string
+  }
   metadata {
     name  = "connectionString"
-    value = var.eh_load_connection_string
+    secret_name = "eh-connection-string"
   }
   scopes = [
     "sender",

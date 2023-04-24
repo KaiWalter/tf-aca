@@ -1,3 +1,7 @@
+locals {
+  app_port = 80
+}
+
 resource "azurerm_container_app" "sender" {
   name                         = "sender"
   container_app_environment_id = var.container_app_environment_id
@@ -14,7 +18,7 @@ resource "azurerm_container_app" "sender" {
 
   ingress {
     external_enabled = true
-    target_port      = 80
+    target_port      = local.app_port
     transport        = "auto"
     traffic_weight {
       percentage = 100
@@ -36,7 +40,7 @@ resource "azurerm_container_app" "sender" {
 
     content {
       app_id       = "sender"
-      app_port     = 80
+      app_port     = local.app_port
       app_protocol = "http"
     }
   }
@@ -48,15 +52,20 @@ resource "azurerm_container_app" "sender" {
       cpu    = 0.25
       memory = "0.5Gi"
 
+      env {
+        name = "APP_PORT"
+        value = local.app_port
+      }
+
       liveness_probe {
         transport = "HTTP"
-        port      = 80
+        port      = local.app_port
         path      = var.service_sender_image_name == "" ? "" : "health"
       }
 
       readiness_probe {
         transport = "HTTP"
-        port      = 80
+        port      = local.app_port
         path      = var.service_sender_image_name == "" ? "" : "health"
       }
     }

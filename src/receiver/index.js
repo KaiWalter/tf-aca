@@ -11,18 +11,27 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/dapr/subscribe', (req, res) => {
-    res.json([
-        {
-            pubsubname: "pubsub-loadtest-sb",
-            topic: "load",
-            route: "receive"
-        },
-        {
-            pubsubname: "pubsub-loadtest-eh",
-            topic: "load",
-            route: "receive"
-        }
-    ]);
+    res.json(process.env.CONTAINER_APP_NAME
+        ? [
+            {
+                pubsubname: "pubsub-loadtest-sb",
+                topic: "load",
+                route: "receive"
+            },
+            {
+                pubsubname: "pubsub-loadtest-eh",
+                topic: "load",
+                route: "receive"
+            }
+        ]
+        : [
+            {
+                pubsubname: "pubsub-loadtest",
+                topic: "load",
+                route: "receive"
+            }
+        ]
+    );
 })
 
 app.post('/receive', (req, res) => {
@@ -30,5 +39,7 @@ app.post('/receive', (req, res) => {
     res.sendStatus(200);
 });
 
-console.log('Receiver listening on port %d', APP_PORT);
-app.listen(APP_PORT);
+console.log(process.env);
+app.listen(APP_PORT, () => {
+    console.log('Receiver listening on port %d', APP_PORT);
+});

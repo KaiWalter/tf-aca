@@ -9,9 +9,11 @@ services:
   sender:
     project: src/sender
     language: js
-    host: containerapp  
+    host: containerapp
+    module: ./sender/main.tf
 
   receiver:
     project: src/receiver
     language: js
     host: containerapp
+    module: ./receiver/main.tf

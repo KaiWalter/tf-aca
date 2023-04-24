@@ -25,7 +25,7 @@ function createRandomOrder() {
 app.get('/send', async (req, res) => {
     const client = new DaprClient(DAPR_HOST, DAPR_HTTP_PORT);
 
-    const pubSubName = req.query.pubsubname || "pubsub-loadtest";
+    const pubSubName = req.query.pubsubname || process.env.CONTAINER_APP_NAME ? "pubsub-loadtest-sb" : "pubsub-loadtest";
     const count = req.query.count || 1;
 
     for (var i = 0; i < count; i++) {
@@ -37,5 +37,7 @@ app.get('/send', async (req, res) => {
     res.status(200).send(pubSubName);
 });
 
-console.log('Sender listening on port %d', APP_PORT);
-app.listen(APP_PORT);
+console.log(process.env);
+app.listen(APP_PORT, () => {
+    console.log('Sender listening on port %d', APP_PORT);
+});
